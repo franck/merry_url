@@ -1,0 +1,15 @@
+=MerryUrl
+
+URL shortening module using :
+* tiny_url
+* is_gd
+
+For instance:
+  require 'merry_url'
+
+  short_uri = MerryUrl.tiny_url("http://www.google.fr")
+  p short_uri
+  # => http://tinyurl.com/6d3x"
+
+
+Copyright (c) 2009 [name of plugin creator], released under the MIT license
