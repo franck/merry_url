@@ -3,8 +3,13 @@
 URL shortening module using :
 * tiny_url
 * is_gd
+* bit_ly
 
-For instance:
+For bit_ly, add your login and API key in config/initializers/merry_url.rb :
+  MerryUrl::BIT_LY_LOGIN = yourLogin
+  MerryUrl::BIT_LY_KEY = yourApiKey
+
+Usage:
   require 'merry_url'
 
   short_uri = MerryUrl.tiny_url("http://www.google.fr")
@@ -12,4 +17,4 @@ For instance:
   # => http://tinyurl.com/6d3x"
 
 
-Copyright (c) 2009 [name of plugin creator], released under the MIT license
+Copyright (c) 2009 Franck D'agostini, released under the MIT license

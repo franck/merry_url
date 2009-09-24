@@ -1,3 +1,5 @@
+require 'json'
+
 module MerryUrl
   
   #
@@ -48,6 +50,26 @@ module MerryUrl
       raise MerryUrlError.new("#{e}")
     end
   end
+  
+  # Bit.ly API require a LOGIN / KEY : http://bit.ly/account/your_api_key
+  #
+  # in config/initializers/merry_url.rb :
+  #   MerryUrl::BIT_LY_LOGIN = mylogin
+  #   MerryUrl::BIT_LY_KEY = myapikey
+  
+  def self.bit_ly(uri)
+    begin
+      valid_uri = MerryUrl.validate(uri)
+      escaped_uri = URI.escape("http://api.bit.ly/shorten?version=2.0.1&longUrl=#{valid_uri}&login=#{BIT_LY_LOGIN}&apiKey=#{BIT_LY_KEY}")
+      uri_parsed = JSON.parse(Net::HTTP.get_response(URI.parse(escaped_uri)).body)
+      #return uri_parsed["results"][valid_uri]["shortUrl"]
+      return uri_parsed["results"][uri]["shortUrl"]
+    rescue => e
+      raise MerryUrlError.new("#{e}")
+    end
+  end
+  
+  private
     
   def self.validate(url)
     begin
